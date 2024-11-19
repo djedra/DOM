@@ -1,42 +1,59 @@
-const buttonFont = Array.from(document.querySelectorAll('.font-size'))
-const arrayColor = Array.from(document.querySelectorAll('.color'))
-const bookMenu = document.querySelector('#book')
+const buttonFont = Array.from(document.querySelectorAll('.font-size'));
+const arrayColor = Array.from(document.querySelectorAll('.color'));
+const bookMenu = document.querySelector('#book');
 
-
-buttonFont.forEach((item, i) => {
-  item.onclick = () => {
+buttonFont.forEach((item) => {
+  item.onclick = (event) => {
+    event.preventDefault();
     const size = event.target.dataset.size;
-    console.log(size)
+
+
+    buttonFont.forEach(button => button.classList.remove('font-size_active'));
+
     if (size) {
-      // bookMenu.classList.add('book_fs-small')
-      // bookMenu.classList.remove('font-size_big')
-      item.classList.add('font-size_active')
-      bookMenu.className = `book book_fs-${size}`;
+      item.classList.add('font-size_active');
+      bookMenu.classList.remove('book_fs-small', 'book_fs-big');
+      bookMenu.classList.add(`book_fs-${size}`);
     } else {
-      bookMenu.className = "book";
+      bookMenu.classList.remove('book_fs-small', 'book_fs-big');
     }
-  }
-})
+  };
+});
 
+const textColorButtons = arrayColor.filter(item => item.dataset.textColor);
+const bgColorButtons = arrayColor.filter(item => item.dataset.bgColor);
 
-arrayColor.forEach((item, i) => {
-  item.addEventListener('click', () => {
+textColorButtons.forEach((item) => {
+  item.addEventListener('click', (event) => {
+    event.preventDefault();
     const textColor = event.target.dataset.textColor;
-    const bgColor = event.target.dataset.bgColor;
+
+
+    textColorButtons.forEach(button => button.classList.remove('color_active'));
+
     if (textColor) {
-      item.classList.add('color_active')
-      bookMenu.className = `book book_color--${textColor}`;
-    } else {
-      bookMenu.className = "book";
+      item.classList.add('color_active');
+      bookMenu.classList.remove('book_color-black', 'book_color-gray', 'book_color-whitesmoke');
+      bookMenu.classList.add(`book_color-${textColor}`);
     }
+  });
+});
+
+bgColorButtons.forEach((item) => {
+  item.addEventListener('click', (event) => {
+    event.preventDefault();
+    const bgColor = event.target.dataset.bgColor;
+
+
+    bgColorButtons.forEach(button => button.classList.remove('color_active'));
+
     if (bgColor) {
-      item.classList.add('color_active')
-      bookMenu.className = `book book_bg-${bgColor}`;
-    } else {
-      bookMenu.className = "book";
+      item.classList.add('color_active');
+      bookMenu.classList.remove('book_bg-black', 'book_bg-gray', 'book_bg-white');
+      bookMenu.classList.add(`book_bg-${bgColor}`);
     }
-  })
-})
+  });
+});
 
 
 
